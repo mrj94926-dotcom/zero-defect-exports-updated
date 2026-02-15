@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Zero Defect Export</title>
+    <link rel="icon" href="./assets/zero-defect-logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase.js"></script>
+    <script src="admin-utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="notifications.js"></script>
+    <script src="analytics.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button id="sidebarCollapseBtn" class="sidebar-collapse-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1><img src="./assets/zero-defect-logo.png" alt="Logo" style="height: 3.5rem; vertical-align: middle;"> <span>Export Dashboard</span></h1>
+            <p>Zero Defect Export</p>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" id="sidebarSearch" placeholder="Search menu...">
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="inquiries.html" class="nav-link">
+                    <i class="fas fa-inbox"></i>
+                    <span>Export Inquiries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="reviews.html" class="nav-link">
+                    <i class="fas fa-star"></i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h2>Analytics</h2>
+            <div class="user-info">
+                <button class="action-btn" id="darkModeToggle" title="Toggle Dark Mode" style="font-size: 1.2rem; margin-right: 10px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="notification-wrapper">
+                    <button class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="notification-dropdown"></div>
+                </div>
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span id="username">Admin</span>
+                <button class="logout-btn" id="logoutBtnTop">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="dashboard-cards analytics-cards">
+            <div class="dashboard-card">
+                <h3>Inquiries by Country</h3>
+                <canvas id="inquiriesByCountryChart"></canvas>
+            </div>
+            <div class="dashboard-card">
+                <h3>Orders Over Time</h3>
+                <canvas id="ordersOverTimeChart"></canvas>
+            </div>
+            <div class="dashboard-card">
+                <h3>Product Popularity</h3>
+                <canvas id="productPopularityChart"></canvas>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

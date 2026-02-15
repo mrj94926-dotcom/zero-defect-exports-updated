@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Defect Export & Manufacturing | Premium Agricultural Exports</title>
+    <meta name="description" content="Premium Rice, Grains & Pulses exported from India with Zero Defect Quality assurance. Bulk export solutions for international buyers.">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" href="./assets/zero-defect-logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reviews Slider Styles */
+        .reviews-slider {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+        .reviews-track {
+            display: flex;
+            width: max-content;
+            animation: scrollReviews 40s linear infinite;
+        }
+        .reviews-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollReviews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Process Slider Styles */
+        .process-slider {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+        .process-track {
+            display: flex;
+            width: max-content;
+            animation: scrollReviews 40s linear infinite; /* Reusing same keyframes as reviews */
+        }
+        .process-track:hover {
+            animation-play-state: paused;
+        }
+        .process-step {
+            min-width: 300px;
+            margin: 0 15px;
+            flex-shrink: 0;
+        }
+        .benefit-item {
+            min-width: 250px;
+            margin: 0 15px;
+            flex-shrink: 0;
+        }
+
+        /* About Highlights Single Line */
+        .highlights-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0;
+        }
+        .highlight-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        /* Card Hover Effects */
+        .highlight-card, .benefit-item, .process-step, .product-card, .review-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .highlight-card:hover, .benefit-item:hover, .process-step:hover, .product-card:hover, .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Product Card Specific Pop-out */
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        .product-card .product-image img {
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        /* Quick View Button */
+        .quick-view-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-view-btn:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .product-card:hover .quick-view-btn {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Quick View Modal Styles */
+        .quick-view-content {
+            max-width: 800px;
+            width: 90%;
+            margin: 10% auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-details-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .product-image-large {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .product-image-large img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .product-info-large {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .product-price-large {
+            font-size: 1.5rem;
+            color: #2E7D32;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .qv-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .badge {
+            background: rgba(46, 125, 50, 0.1);
+            color: #2E7D32;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .qv-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .quantity-selector button {
+            background: #f5f5f5;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .quantity-selector button:hover {
+            background: #e0e0e0;
+        }
+        
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            padding: 5px;
+            font-size: 1rem;
+            -moz-appearance: textfield;
+        }
+        
+        .quantity-selector input::-webkit-outer-spin-button,
+        .quantity-selector input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Related Products in Quick View */
+        .related-products-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .related-products-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .related-products-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .related-product-card {
+            min-width: 150px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .related-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .related-product-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        
+        .related-product-card h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .related-product-card p {
+            font-size: 0.85rem;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        /* Zoom Effect */
+        .product-image-large {
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        
+        .product-image-large img {
+            transition: transform 0.2s ease-out;
+            transform-origin: center center;
+        }
+        
+        .product-image-large:hover img {
+            transform: scale(2);
+        }
+
+        /* Share Button */
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .btn-icon:hover {
+            background: #2E7D32;
+            color: white;
+            border-color: #2E7D32;
+        }
+
+        /* Wishlist FAB */
+        .wishlist-fab {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            color: #e74c3c;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .wishlist-fab:hover {
+            transform: scale(1.1);
+        }
+
+        .wishlist-fab span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            font-size: 0.8rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        /* Gallery Styles */
+        .qv-gallery {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .qv-gallery img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .qv-gallery img.active {
+            border-color: #2E7D32;
+        }
+
+        /* Header Cart Button */
+        .header-cart-btn {
+            background: #8B4513;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .header-cart-btn:hover {
+            background: #795548;
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: white;
+            color: #8B4513;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cart-badge.bump {
+            animation: cartBump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes cartBump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(1); }
+        }
+
+        .btn--danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn--danger:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 480px) {
+            .cart-label {
+                display: none;
+            }
+        }
+
+        /* Pagination */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .pagination-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #2E7D32;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #2E7D32;
+            color: white;
+            border-color: #2E7D32;
+        }
+
+        .pagination-btn:disabled {
+            background: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .quick-view-content {
+                margin: 15% auto;
+                width: 95%;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            
+            .product-details-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="animated-bg">
+        <div class="rice-particle"></div>
+        <div class="rice-particle"></div>
+        <div class="rice-particle"></div>
+        <div class="grain-particle"></div>
+        <div class="grain-particle"></div>
+        <div class="pulse-particle"></div>
+        <div class="pulse-particle"></div>
+    </div>
+
+    <!-- Header with Glass Morphism -->
+    <header class="header glass">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">
+                    <img src="./assets/zero-defect-logo.png" alt="zero-defect-logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>ZERO DEFECT</h1>
+                        <span class="logo-tagline">EXPORT & MANUFACTURING</span>
+                    </div>
+                </a>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#products" class="nav-link">Products</a></li>
+                        <li><a href="#quality" class="nav-link">Quality</a></li>
+                        <li><a href="#inquiry" class="nav-link">Export Inquiry</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-nav-toggle" aria-controls="navList" aria-expanded="false">
+                    <span class="hamburger-bar"></span>
+                    <span class="sr-only">Menu</span>
+                </button>
+                <button class="header-cart-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-label">Cart</span>
+                    <span id="cart-count" class="cart-badge" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Parallax -->
+    <section id="home" class="hero parallax-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content glass animate-pop">
+                <h2 class="hero-title">Premium Rice, Grains & Pulses Exported from India</h2>
+            <p class="hero-subtitle">Zero Defect Quality • Hygienic Processing • Bulk Export Solutions</p>
+                <a href="#inquiry" class="btn btn--primary hero-btn animate-bounce">
+                    <i class="fas fa-file-export"></i> Request Export Quote
+                </a>
+            </div>
+        </div>
+        <div class="hero-particles">
+            <div class="particle grain"></div>
+            <div class="particle rice"></div>
+            <div class="particle pulse"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Our Company</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content glass animate-slide-up">
+                <p class="about-text">
+                    We are an India-based agricultural export company specializing in premium rice, grains, and pulses. 
+                    With a strong focus on quality assurance, hygienic processing, and reliable bulk supply, 
+                    we serve international buyers worldwide.
+                </p>
+                <div class="highlights-grid">
+                    <div class="highlight-card glass animate-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-flag india-flag"></i>
+                        </div>
+                        <h3>India-based Exporter</h3>
+                        <p>Direct sourcing from India's agricultural heartlands</p>
+                    </div>
+                    <div class="highlight-card glass animate-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Export-focused Operations</h3>
+                        <p>Dedicated export infrastructure and logistics</p>
+                    </div>
+                    <div class="highlight-card glass animate-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Quality Assurance</h3>
+                        <p>Rigorous quality checks at every stage</p>
+                    </div>
+                    <div class="highlight-card glass animate-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Long-term Relationships</h3>
+                        <p>Building sustainable partnerships with buyers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Products</h2>
+                <div class="underline"></div>
+                <p>Premium Agricultural Products for Global Markets</p>
+            </div>
+
+            <!-- Product Filters -->
+            <div class="product-filters glass animate-pop">
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                    <button class="filter-btn" onclick="filterProducts('rice')">Rice</button>
+                    <button class="filter-btn" onclick="filterProducts('pulses')">Pulses</button>
+                    <button class="filter-btn" onclick="filterProducts('grains')">Grains</button>
+                    <button class="filter-btn" onclick="filterProducts('spices')">Spices</button>
+                    <button class="filter-btn" onclick="filterProducts('coconut')">Coconut</button>
+                </div>
+                <div class="filter-group">
+                    <label for="price-filter">Price (per kg):</label>
+                    <input type="range" id="price-filter" min="50" max="500" value="500" oninput="filterProductsByPrice(this.value)">
+                    <span id="price-value">₹500</span>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Products will be loaded dynamically via script.js -->
+            </div>
+            
+            <div id="product-pagination" class="pagination-controls" style="display: none;">
+                <button id="prevProductPage" class="pagination-btn" onclick="changeProductPage(-1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <span id="productPageInfo">Page 1</span>
+                <button id="nextProductPage" class="pagination-btn" onclick="changeProductPage(1)">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Reviews</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="reviews-slider">
+                <div class="reviews-track">
+                    <!-- Reviews will be loaded dynamically via script.js -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Write a Review Section -->
+    <section id="write-review" class="inquiry section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Write a Review</h2>
+                <div class="underline"></div>
+                <p>Share your experience with our products.</p>
+            </div>
+            <div class="inquiry-form-container glass animate-pop">
+                <form class="inquiry-form" id="reviewForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="review-name" class="form-label">Your Name *</label>
+                            <input type="text" id="review-name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-rating" class="form-label">Rating *</label>
+                            <div class="star-rating">
+                                <i class="far fa-star" data-value="1"></i>
+                                <i class="far fa-star" data-value="2"></i>
+                                <i class="far fa-star" data-value="3"></i>
+                                <i class="far fa-star" data-value="4"></i>
+                                <i class="far fa-star" data-value="5"></i>
+                            </div>
+                            <input type="hidden" id="review-rating-value" name="rating" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-message" class="form-label">Your Review *</label>
+                        <textarea id="review-message" name="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">
+                        <i class="fas fa-paper-plane"></i> Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total:</strong> <span id="cart-total">₹0</span>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn btn--danger" onclick="clearCart()" style="flex: 1; border: none;">Clear Cart</button>
+                <button class="btn btn--primary" onclick="checkout()" style="flex: 1;">Checkout</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content glass quick-view-content">
+            <span class="close-btn" onclick="closeQuickView()">&times;</span>
+            <div class="product-details-container">
+                <div class="product-image-large">
+                    <img id="qv-image" src="" alt="Product Image">
+                    <div class="qv-gallery" id="qv-gallery"></div>
+                </div>
+                <div class="product-info-large">
+                    <h2 id="qv-name">Product Name</h2>
+                    <p id="qv-subtitle" class="product-subtitle">Subtitle</p>
+                    <div class="qv-meta">
+                        <span id="qv-category" class="badge">Category</span>
+                        <span id="qv-stock" class="stock-status">In Stock</span>
+                    </div>
+                    <p id="qv-price" class="product-price-large">₹0</p>
+                    <p class="product-description">Premium quality export-grade product sourced directly from the best farms in India. Processed and packed with zero defect assurance.</p>
+                    
+                    <div class="qv-actions">
+                        <div class="quantity-selector">
+                            <button onclick="adjustQvQuantity(-1)">-</button>
+                            <input type="number" id="qv-quantity" value="1" min="1" readonly>
+                            <button onclick="adjustQvQuantity(1)">+</button>
+                        </div>
+                        <button class="btn btn--primary" id="qv-add-to-cart">Add to Cart</button>
+                        <button class="btn-icon" id="qv-share-btn" title="Share Product">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="btn-icon" id="qv-wishlist-btn" title="Add to Wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="related-products-section" style="display: none;">
+                <h3>Related Products</h3>
+                <div class="related-products-grid" id="qv-related-products">
+                    <!-- Related products will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-btn" onclick="closeWishlist()">&times;</span>
+            <h2>My Wishlist</h2>
+            <div id="wishlist-items" class="products-grid" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <button class="wishlist-fab glass" onclick="openWishlist()">
+        <i class="fas fa-heart"></i>
+        <span id="wishlist-count">0</span>
+    </button>
+
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="inquiry section fade-in" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Checkout</h2>
+                <div class="underline"></div>
+                <p>Please fill out the form below to complete your order.</p>
+            </div>
+            
+            <div class="inquiry-form-container glass animate-pop">
+                <form class="inquiry-form" id="checkoutForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkout-name" class="form-label">Full Name *</label>
+                            <input type="text" id="checkout-name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-email" class="form-label">Email Address *</label>
+                            <input type="email" id="checkout-email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-address" class="form-label">Shipping Address *</label>
+                        <textarea id="checkout-address" name="address" class="form-control" rows="3" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">
+                        <i class="fas fa-paper-plane"></i> Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quality & Process Section -->
+    <section id="quality" class="quality section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quality & Export Process</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="quality-process glass animate-slide-up">
+                <div class="process-slider">
+                    <div class="process-track">
+                        <!-- Original Items -->
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">01</div>
+                            <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                            <h4>Zero Defect Quality Checks</h4>
+                            <p>Multi-stage inspection ensuring premium quality</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">02</div>
+                            <div class="step-icon"><i class="fas fa-hand-sparkles"></i></div>
+                            <h4>Hygienic Processing</h4>
+                            <p>Modern facilities with strict hygiene protocols</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">03</div>
+                            <div class="step-icon"><i class="fas fa-box"></i></div>
+                            <h4>Export-grade Packaging</h4>
+                            <p>ISO-standard packaging for product integrity</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">04</div>
+                            <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                            <h4>Documentation Support</h4>
+                            <p>Complete export documentation handling</p>
+                        </div>
+
+                        <!-- Duplicated Items for Seamless Loop -->
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">01</div>
+                            <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                            <h4>Zero Defect Quality Checks</h4>
+                            <p>Multi-stage inspection ensuring premium quality</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">02</div>
+                            <div class="step-icon"><i class="fas fa-hand-sparkles"></i></div>
+                            <h4>Hygienic Processing</h4>
+                            <p>Modern facilities with strict hygiene protocols</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">03</div>
+                            <div class="step-icon"><i class="fas fa-box"></i></div>
+                            <h4>Export-grade Packaging</h4>
+                            <p>ISO-standard packaging for product integrity</p>
+                        </div>
+                        <div class="process-step glass animate-card">
+                            <div class="step-number">04</div>
+                            <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                            <h4>Documentation Support</h4>
+                            <p>Complete export documentation handling</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Our Export Services</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="quality-process glass animate-slide-up">
+                <div class="process-slider">
+                    <div class="process-track">
+                        <!-- Original Items -->
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-star"></i>
+                            <h4>Zero Defect Quality Focus</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-industry"></i>
+                            <h4>Bulk Export Capability</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-tags"></i>
+                            <h4>Competitive Pricing</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-network-wired"></i>
+                            <h4>Reliable Supply Chain</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-hands-helping"></i>
+                            <h4>Ethical Sourcing</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-clock"></i>
+                            <h4>Timely Delivery</h4>
+                        </div>
+
+                        <!-- Duplicated Items for Seamless Loop -->
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-star"></i>
+                            <h4>Zero Defect Quality Focus</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-industry"></i>
+                            <h4>Bulk Export Capability</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-tags"></i>
+                            <h4>Competitive Pricing</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-network-wired"></i>
+                            <h4>Reliable Supply Chain</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-hands-helping"></i>
+                            <h4>Ethical Sourcing</h4>
+                        </div>
+                        <div class="benefit-item glass animate-card">
+                            <i class="fas fa-clock"></i>
+                            <h4>Timely Delivery</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Export Inquiry Form -->
+    <section id="inquiry" class="inquiry section fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Request Export Quote</h2>
+                <div class="underline"></div>
+                <p>Submit your inquiry and our export team will contact you within 24 hours</p>
+            </div>
+            
+            <div class="inquiry-form-container glass animate-pop">
+                <form class="inquiry-form" id="exportInquiryForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company" class="form-label">Company Name</label>
+                            <input type="text" id="company" name="company" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country" class="form-label">Country *</label>
+                            <select id="country" name="country" class="form-control" required>
+                                <option value="">Select Country</option>
+                                <option value="USA">United States</option>
+                                <option value="UAE">United Arab Emirates</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product" class="form-label">Product Interested *</label>
+                            <select id="product" name="product" class="form-control" required>
+                                <option value="">Select Product</option>
+                                <option value="Rice">Rice (Basmati & Non-Basmati)</option>
+                                <option value="Pulses">Pulses (Toor Dal, Moong Dal, Urad Dal)</option>
+                                <option value="Grains">Grains (Wheat, Maize, Others)</option>
+                                <option value="Multiple">Multiple Products</option>
+                                <option value="Other">Other (Specify in message)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity" class="form-label">Quantity Required *</label>
+                            <input type="text" id="quantity" name="quantity" class="form-control" placeholder="e.g., 20 MT, 1 Container, 1000 Bags" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone / WhatsApp</label>
+                            <input type="tel" id="phone" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" id="city" name="city" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Additional Requirements</label>
+                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="Please provide any additional details about your requirements..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">
+                        <i class="fas fa-paper-plane"></i> Submit Inquiry
+                    </button>
+                    
+                    <p class="form-note">* Required fields. We respect your privacy and will not share your information.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer id="contact" class="footer section fade-in">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo footer-logo">
+                        <img src="./assets/zero-defect-logo.png" alt="zero-defect-logo" class="logo-img">
+                        <div class="logo-text">
+                            <h3>ZERO DEFECT</h3>
+                            <span class="logo-tagline">EXPORT & MANUFACTURING</span>
+                        </div>
+                    </div>
+                    <p class="footer-tagline">Premium Agricultural Export Solutions from India</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <span id="contactLocation">India</span></p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <span id="contactEmail">export@zerodefect.com</span></p>
+                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> <span id="contactPhone">+91 XXX XXX XXXX</span></p>
+                        <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <span id="contactWhatsapp">+91 XXX XXX XXXX</span></p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="#products"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="#quality"><i class="fas fa-chevron-right"></i> Quality</a></li>
+                        <li><a href="#inquiry"><i class="fas fa-chevron-right"></i> Export Inquiry</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Business Hours</h4>
+                    <div class="business-hours">
+                        <p><i class="far fa-clock"></i> <span id="hoursWeekdays">Monday - Friday: 9:00 AM - 6:00 PM IST</span></p>
+                        <p><i class="far fa-clock"></i> <span id="hoursSaturday">Saturday: 10:00 AM - 4:00 PM IST</span></p>
+                        <p><i class="far fa-clock"></i> <span id="hoursSunday">Sunday: Closed</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" id="linkLinkedin" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" id="linkTwitter" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" id="linkInstagram" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" id="linkFacebook" class="social-link"><i class="fab fa-facebook"></i></a>
+                </div>
+                <p>&copy; 2026 Zero Defect Export & Manufacturing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Message -->
+    <div class="success-message glass hidden" id="successMessage">
+        <div class="success-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <div class="success-text">
+                <h4>Thank You!</h4>
+                <p>Your export inquiry has been submitted successfully.</p>
+            </div>
+            <button class="success-close" onclick="hideSuccessMessage()">×</button>
+        </div>
+    </div>
+
+    <!-- Page Overlay for Mobile Menu -->
+    <div class="page-overlay hidden" id="pageOverlay"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="back-to-top-btn glass" title="Go to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

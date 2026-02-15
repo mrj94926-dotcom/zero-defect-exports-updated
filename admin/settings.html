@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Zero Defect Export</title>
+    <link rel="icon" href="./assets/zero-defect-logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase.js"></script>
+    <script src="admin-utils.js"></script>
+    <script src="notifications.js"></script>
+    <script src="settings.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button id="sidebarCollapseBtn" class="sidebar-collapse-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1><img src="./assets/zero-defect-logo.png" alt="Logo" style="height: 3.5rem; vertical-align: middle;"> <span>Export Dashboard</span></h1>
+            <p>Zero Defect Export</p>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" id="sidebarSearch" placeholder="Search menu...">
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="inquiries.html" class="nav-link">
+                    <i class="fas fa-inbox"></i>
+                    <span>Export Inquiries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="products.html" class="nav-link">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="reviews.html" class="nav-link">
+                    <i class="fas fa-star"></i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h2>Settings</h2>
+            <div class="user-info">
+                <button class="action-btn" id="darkModeToggle" title="Toggle Dark Mode" style="font-size: 1.2rem; margin-right: 10px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="notification-wrapper">
+                    <button class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="notification-dropdown"></div>
+                </div>
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span id="username">Admin</span>
+                <button class="logout-btn" id="logoutBtnTop">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="inquiries-table">
+            <div class="table-header">
+                <h3>Store Information</h3>
+            </div>
+            <form id="storeInfoForm" style="max-width: 600px;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Store Name</label>
+                    <input type="text" id="storeName" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Contact Email</label>
+                    <input type="email" id="storeEmail" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Phone Number</label>
+                    <input type="text" id="storePhone" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">WhatsApp Number</label>
+                    <input type="text" id="storeWhatsapp" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Location / Address</label>
+                    <input type="text" id="storeLocation" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <h4 style="margin: 20px 0 15px; color: var(--color-forest); border-bottom: 1px solid #eee; padding-bottom: 5px;">Business Hours</h4>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Monday - Friday</label>
+                    <input type="text" id="storeHoursWeekdays" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Saturday</label>
+                    <input type="text" id="storeHoursSaturday" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Sunday</label>
+                    <input type="text" id="storeHoursSunday" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <h4 style="margin: 20px 0 15px; color: var(--color-forest); border-bottom: 1px solid #eee; padding-bottom: 5px;">Social Media Links</h4>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">LinkedIn URL</label>
+                    <input type="url" id="socialLinkedin" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Twitter URL</label>
+                    <input type="url" id="socialTwitter" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Instagram URL</label>
+                    <input type="url" id="socialInstagram" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Facebook URL</label>
+                    <input type="url" id="socialFacebook" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <button type="submit" class="btn" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="inquiries-table" style="margin-top: 30px;">
+            <div class="table-header">
+                <h3>Notification Settings</h3>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px; max-width: 600px;">
+                <label style="display: block; margin-bottom: 5px;">Notification Sound</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="notificationSound" class="form-control" style="flex: 1;">
+                        <option value="default">Default (Tri-tone)</option>
+                        <option value="chime">Chime</option>
+                        <option value="alert">Alert</option>
+                        <option value="magic">Magic</option>
+                    </select>
+                    <button id="testSoundBtn" class="btn" style="background-color: var(--color-earth); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-play"></i> Test
+                    </button>
+                </div>
+            </div>
+            <button id="saveNotificationSettingsBtn" class="btn" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Save Settings</button>
+        </div>
+
+        <div class="inquiries-table" style="margin-top: 30px;">
+            <div class="table-header">
+                <h3>Application Data</h3>
+            </div>
+            <p style="margin-bottom: 15px; color: #666;">Clear local storage data to reset the application to default state.</p>
+            <button id="resetDataBtn" class="btn" style="background-color: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Reset All Data</button>
+        </div>
+    </main>
+</body>
+
+</html>

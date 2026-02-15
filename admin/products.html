@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Zero Defect Export</title>
+    <link rel="icon" href="./assets/zero-defect-logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="admin-utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="./supabase.js"></script>
+    <script src="notifications.js"></script>
+    <script src="products.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button id="sidebarCollapseBtn" class="sidebar-collapse-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1><img src="./assets/zero-defect-logo.png" alt="Logo" style="height: 3.5rem; vertical-align: middle;"> <span>Export Dashboard</span></h1>
+            <p>Zero Defect Export</p>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" id="sidebarSearch" placeholder="Search menu...">
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="inquiries.html" class="nav-link">
+                    <i class="fas fa-inbox"></i>
+                    <span>Export Inquiries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="products.html" class="nav-link active">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="reviews.html" class="nav-link">
+                    <i class="fas fa-star"></i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h2>Product Management</h2>
+            <div class="user-info">
+                <button class="action-btn" id="darkModeToggle" title="Toggle Dark Mode" style="font-size: 1.2rem; margin-right: 10px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="notification-wrapper">
+                    <button class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="notification-dropdown"></div>
+                </div>
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span id="username">Admin</span>
+                <button class="logout-btn" id="logoutBtnTop">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <!-- Products Table -->
+        <div class="inquiries-table">
+            <div class="table-header">
+                <h3>All Products</h3>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <div class="search-wrapper" style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #888;"></i>
+                        <input type="text" id="productSearchInput" placeholder="Search products..." style="padding: 8px 10px 8px 35px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-family: inherit;">
+                    </div>
+                    <button class="refresh-btn" id="bulkDeleteBtn" style="background-color: #e74c3c; display: none;">
+                        <i class="fas fa-trash"></i> Delete Selected
+                    </button>
+                    <select id="categoryFilter" class="form-control" style="padding: 8px; width: auto;">
+                        <option value="all">All Categories</option>
+                        <option value="rice">Rice</option>
+                        <option value="pulses">Pulses</option>
+                        <option value="grains">Grains</option>
+                        <option value="spices">Spices</option>
+                        <option value="coconut">Coconut</option>
+                    </select>
+                    <button class="refresh-btn" id="addProductBtn" style="background-color: var(--color-forest);">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+            </div>
+            
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAllProducts"></th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Subtitle</th>
+                        <th>Category</th>
+                        <th id="sortStockHeader" style="cursor: pointer; user-select: none;">Stock <i class="fas fa-sort" id="sortStockIcon"></i></th>
+                        <th>Price (₹)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsBody">
+                    <!-- Products will be loaded here -->
+                </tbody>
+            </table>
+            
+            <div id="paginationControls" class="pagination-controls" style="display: none;">
+                <button id="prevPageBtn" class="pagination-btn"><i class="fas fa-chevron-left"></i> Previous</button>
+                <span id="pageInfo">Page 1 of 1</span>
+                <button id="nextPageBtn" class="pagination-btn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Add/Edit Product -->
+    <div id="productModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Product</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productSubtitle">Subtitle</label>
+                        <input type="text" id="productSubtitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Category</label>
+                        <select id="productCategory" class="form-control" required>
+                            <option value="rice">Rice</option>
+                            <option value="pulses">Pulses</option>
+                            <option value="grains">Grains</option>
+                            <option value="spices">Spices</option>
+                            <option value="coconut">Coconut</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productSubCategory">Sub Category (e.g., Whole, Powder)</label>
+                        <input type="text" id="productSubCategory" class="form-control" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Stock Quantity (kg)</label>
+                        <input type="number" id="productStock" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Price (per kg)</label>
+                        <input type="number" id="productPrice" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div id="dropZone" class="drop-zone">
+                            <span class="drop-zone__prompt"><i class="fas fa-cloud-upload-alt"></i> Drop file here or click to upload</span>
+                            <input type="file" id="productImage" class="drop-zone__input" accept="image/*">
+                        </div>
+                        <input type="hidden" id="existingImage">
+                        <div id="imagePreviewContainer" style="margin-top: 10px; display: none;">
+                            <img id="imagePreview" src="" alt="Preview" style="max-width: 100px; max-height: 100px; border-radius: 5px; object-fit: cover;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="productBestSeller" style="width: auto;">
+                            <span>Mark as Best Seller</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-left: 20px;">
+                            <input type="checkbox" id="productNewArrival" style="width: auto;">
+                            <span>Mark as New Arrival</span>
+                        </label>
+                    </div>
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button type="submit" class="btn" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Save Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Cropping -->
+    <div id="cropModal" class="modal" style="display: none; z-index: 2000;">
+        <div class="modal-content" style="width: 90%; max-width: 600px;">
+            <div class="modal-header">
+                <h3>Crop Image</h3>
+                <button class="close-btn" id="closeCropBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="height: 400px; width: 100%;">
+                    <img id="cropImageTarget" src="" style="max-width: 100%; max-height: 100%; display: block;">
+                </div>
+                <div style="margin-top: 20px; text-align: right;">
+                    <button id="cropSaveBtn" class="btn" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Crop & Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
